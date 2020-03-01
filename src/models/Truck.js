@@ -15,6 +15,14 @@ class Truck extends Model {
             },
             alias: DataTypes.STRING
         }, {
+            hooks: {
+                beforeSave: async truck => {
+                    truck.plate = truck.plate.toLowerCase();
+                },
+                beforeUpdate: async truck => {
+                    truck.plate = truck.plate.toLowerCase();
+                }
+            },
             sequelize
         });
     }

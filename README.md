@@ -1,18 +1,18 @@
-# Foobar
+# Truck API
 
 Restfull API for Truck and Truck Position registration using Node
 
 ## How to execute this project
 
-Node version: v12.16.1
+**Node version:** v12.16.1
 
-Yarn Version: 1.22.0
+**Yarn Version:** 1.22.0
 
-Database: MariaDB 10.4.6-MariaD
+**Database:** MariaDB 10.4.6-MariaD
 
-Create a database with name truck-api
+**Create a database with name** truck-api
 
-Configure your database credentials on file /.env
+**Configure your database credentials on file:** /.env
 
 Run the application with the command
 ```bash

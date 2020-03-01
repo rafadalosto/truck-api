@@ -5,7 +5,9 @@ Restfull API for Truck and Truck Position registration using Node
 ## How to execute this project
 
 Node version: v12.16.1
+
 Yarn Version: 1.22.0
+
 Database: MariaDB 10.4.6-MariaD
 
 Create a database with name truck-api

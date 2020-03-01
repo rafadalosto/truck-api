@@ -26,7 +26,7 @@ module.exports = {
                 return res.status(422).json({error: "You need to inform the plate of the Truck"});
             }
             
-            if (await Truck.findOne({where: {plate: plate}})) {
+            if (await Truck.findOne({where: {plate: plate.toLowerCase()}})) {
                 return res.status(422).json({error: "You can't create  two trucks with the same plate"});
             }
 
@@ -46,7 +46,7 @@ module.exports = {
             return res.status(422).json({error: "You need to inform the plate of the Truck"});
         }
         
-        if (await Truck.findOne({where: {plate: plate, id: { [Op.ne]: id }}})) {
+        if (await Truck.findOne({where: {plate: plate.toLowerCase(), id: { [Op.ne]: id }}})) {
             return res.status(422).json({error: "This plate is already registred!"});
         }
         
@@ -58,7 +58,7 @@ module.exports = {
     
         truck.plate = plate;
         truck.alias = alias;
-        truck.save();
+        await truck.save();
         return res.json(truck);
     },
 

@@ -5,10 +5,14 @@ require('dotenv').config({
 const express = require('express');
 const routes = require('./routes');
 
-require('./database')
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./config/swagger.json');
+
+require('./database');
 
 const app = express();
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 app.use(routes);
 

@@ -14,12 +14,22 @@ Restfull API for Truck and Truck Position registration using Node
 
 **Configure your database credentials on file:** /.env
 
-Run the application with the command
+**Install the dependencies**
+```bash
+yarn install
+```
+
+**Create the tables on database**
+```bash
+yarn sequelize db:migrate
+```
+
+**Run the application with the command**
 ```bash
 yarn dev
 ```
 
-Run the tests with the command
+**Run the tests with the command**
 ```bash
 yarn test
 ```
@@ -28,4 +38,6 @@ yarn test
 You can use the Insomnia (https://insomnia.rest/) to make the calls to the API endpoints.
 Install Insomnia and import the file Insomnia_2020-03-01.json.
 
-
+## API Documentation
+The documentation of the API can be accessed with the follow link, while the application is running.
+http://localhost:3333/api-docs

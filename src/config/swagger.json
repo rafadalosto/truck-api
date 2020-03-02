@@ -1,0 +1,352 @@
+{
+    "swagger":"2.0",
+    "info":{
+       "version":"1.0.0",
+       "title":"Truck API Documentation",
+       "license":{
+          "name":"MIT",
+          "url":"https://opensource.org/licenses/MIT"
+       }
+    },
+    "host":"localhost:3333",
+    "basePath":"/",
+    "tags":[
+       {
+          "name":"Truck API",
+          "description":"API for create Trucks and Truck Positions on the system"
+       }
+    ],
+    "schemes":[
+       "http"
+    ],
+    "consumes":[
+       "application/json"
+    ],
+    "produces":[
+       "application/json"
+    ],
+    "paths":{
+       "/truck":{
+          "post":{
+             "tags":[
+                "Truck"
+             ],
+             "summary":"Create a new Truck",
+             "parameters":[
+                {
+                   "name":"truck",
+                   "in":"body",
+                   "description":"The truck to create",
+                   "schema":{
+                      "$ref":"#/definitions/Truck"
+                   }
+                }
+             ],
+             "produces":[
+                "application/json"
+             ],
+             "responses":{
+                "200":{
+                   "description":"New truck is created",
+                   "schema":{
+                      "$ref":"#/definitions/Truck"
+                   }
+                },
+                "422":{
+                   "description":"Plate not valid or already registred"
+                }
+             }
+          },
+          "get":{
+             "tags":[
+                "Truck"
+             ],
+             "summary":"Get all trucks in system",
+             "responses":{
+                "200":{
+                   "description":"Return a list of trucks",
+                   "schema":{
+                      "type":"array",
+                      "items":{
+                         "properties":{
+                            "id":{
+                               "type":"string"
+                            },
+                            "plate":{
+                               "type":"string"
+                            },
+                            "alias":{
+                               "type":"string"
+                            },
+                            "createdAt":{
+                               "type":"string"
+                            },
+                            "updatedAt":{
+                               "type":"string"
+                            }
+                         }
+                      }
+                   }
+                }
+             }
+          }
+       },
+       "/truck/{truckId}":{
+          "parameters":[
+             {
+                "name":"truckId",
+                "in":"path",
+                "required":true,
+                "description":"ID of Truck that we want to find",
+                "type":"string"
+             }
+          ],
+          "get":{
+             "tags":[
+                "Truck"
+             ],
+             "summary":"Get truck with given ID",
+             "responses":{
+                "200":{
+                   "description":"Truck is found",
+                   "schema":{
+                      "$ref":"#/definitions/Truck"
+                   }
+                },
+                "404":{
+                   "description":"Truck not found"
+                }
+             }
+          },
+          "delete":{
+             "summary":"Delete the Truck with given ID",
+             "tags":[
+                "Truck"
+             ],
+             "responses":{
+                "200":{
+                   "description":"Truck is deleted with success"
+                },
+                "404":{
+                   "description":"Truck not found"
+                }
+             }
+          },
+          "put":{
+             "summary":"Update Truck with give ID",
+             "tags":[
+                "Truck"
+             ],
+             "parameters":[
+                {
+                   "name":"truck",
+                   "in":"body",
+                   "description":"Truck with new values of properties",
+                   "schema":{
+                      "$ref":"#/definitions/Truck"
+                   }
+                }
+             ],
+             "responses":{
+                "200":{
+                   "description":"Truck is updated",
+                   "schema":{
+                      "$ref":"#/definitions/Truck"
+                   }
+                },
+                "404":{
+                   "description":"Truck not found"
+                },
+                "422":{
+                   "description":"plate not valid or already registred"
+                }
+             }
+          }
+       },
+       "/truckPosition/{truckId}":{
+          "post":{
+             "tags":[
+                "Truck Position"
+             ],
+             "summary":"Create a new Truck Position",
+             "parameters":[
+                {
+                   "name":"truckId",
+                   "in":"path",
+                   "required":true,
+                   "description":"ID of Truck that will be registered the position",
+                   "type":"string"
+                },
+                {
+                   "name":"coordinates",
+                   "in":"body",
+                   "description":"Latitude and Longitude of the truck position",
+                   "schema":{
+                      "$ref":"#/definitions/TruckPosition"
+                   }
+                }
+             ],
+             "produces":[
+                "application/json"
+             ],
+             "responses":{
+                "200":{
+                   "description":"The position created",
+                   "schema":{
+                      "$ref":"#/definitions/TruckPosition"
+                   }
+                },
+                "422":{
+                   "description":"Latitude or Longitude invalid, or truck not found"
+                }
+             }
+          },
+          "get":{
+             "tags":[
+                "Truck Position"
+             ],
+             "summary":"Get a list of position from a truck",
+             "parameters":[
+                {
+                   "name":"truckId",
+                   "in":"path",
+                   "required":true,
+                   "description":"ID of Truck that want to find the positiona",
+                   "type":"string"
+                }
+             ],
+             "produces":[
+                "application/json"
+             ],
+             "responses":{
+                "200":{
+                   "description":"Return the positions of the truck",
+                   "schema":{
+                      "type":"array",
+                      "items":{
+                         "properties":{
+                            "id":{
+                               "type":"string"
+                            },
+                            "lat":{
+                               "type":"string"
+                            },
+                            "lnt":{
+                               "type":"string"
+                            },
+                            "createdAt":{
+                               "type":"string"
+                            },
+                            "updatedAt":{
+                               "type":"string"
+                            }
+                         }
+                      }
+                   }
+                }
+             }
+          }
+       },
+       "/truckPosition/{truckId}/{positionId}":{
+          "get":{
+             "tags":[
+                "Truck Position"
+             ],
+             "summary":"get a specific position from a truck",
+             "parameters":[
+                {
+                   "name":"truckId",
+                   "in":"path",
+                   "required":true,
+                   "description":"ID of Truck",
+                   "type":"string"
+                },
+                {
+                   "name":"positionId",
+                   "in":"path",
+                   "required":true,
+                   "description":"ID of the position",
+                   "type":"string"
+                }
+             ],
+             "produces":[
+                "application/json"
+             ],
+             "responses":{
+                "200":{
+                   "description":"The position created",
+                   "schema":{
+                      "$ref":"#/definitions/TruckPosition"
+                   }
+                },
+                "422":{
+                   "description":"Latitude or Longitude invalid, or truck not found"
+                }
+             }
+          },
+          "delete":{
+             "tags":[
+                "Truck Position"
+             ],
+             "summary":"Remove a position from a truck",
+             "parameters":[
+                {
+                   "name":"truckId",
+                   "in":"path",
+                   "required":true,
+                   "description":"ID of Truck that want to find the positiona",
+                   "type":"string"
+                },
+                {
+                   "name":"positionId",
+                   "in":"path",
+                   "required":true,
+                   "description":"ID of the position",
+                   "type":"string"
+                }
+             ],
+             "produces":[
+                "application/json"
+             ],
+             "responses":{
+                "200":{
+                   "description":"Position removed with success"
+                },
+                "404":{
+                    "description":"Truck or position not found"
+                 }
+             }
+          }
+       }
+    },
+    "definitions":{
+       "Truck":{
+          "required":[
+             "plate"
+          ],
+          "properties":{
+             "plate":{
+                "type":"string",
+                "uniqueItems":true
+             },
+             "alias":{
+                "type":"string"
+             }
+          }
+       },
+       "TruckPosition":{
+          "required":[
+             "lat",
+             "lng"
+          ],
+          "properties":{
+             "lat":{
+                "type":"string"
+             },
+             "lng":{
+                "type":"string"
+             }
+          }
+       }
+    }
+ }
